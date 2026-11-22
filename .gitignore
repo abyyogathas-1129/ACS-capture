@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+
+# Project documentation — keep Markdown files out of Git
+*.md
