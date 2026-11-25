@@ -1,7 +1,6 @@
 import AboutUsSection from '../components/home/AboutUsSection'
 import HeroSection from '../components/home/HeroSection'
 import InstagramSection from '../components/home/InstagramSection'
-import KindWordsSection from '../components/home/KindWordsSection'
 import LetsTalkSection from '../components/home/LetsTalkSection'
 import LoveStoriesSection from '../components/home/LoveStoriesSection'
 import ServicesSection from '../components/home/ServicesSection'
@@ -16,7 +15,6 @@ function HomePage() {
       <LoveStoriesSection />
       <AboutUsSection />
       <ServicesSection />
-      <KindWordsSection />
       <InstagramSection />
       <LetsTalkSection />
     </>
