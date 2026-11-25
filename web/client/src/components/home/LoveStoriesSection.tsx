@@ -9,7 +9,7 @@ import useHasScrolledIntoView from '../../hooks/useHasScrolledIntoView'
 import { cn } from '../../utils/cn'
 import PhotoPrint from '../common/PhotoPrint'
 
-type RecentStory = {
+type LoveStory = {
   title: string
   subtitle: string
   imageSrc: string
@@ -24,7 +24,7 @@ type CarouselArrowButtonProps = {
 
 // The 2 arrangements from Figma ("Position 1" and "Position 2").
 // Each slide lists 3 stories: large print (left), small print (middle), large print (right).
-const storySlides: RecentStory[][] = [
+const storySlides: LoveStory[][] = [
   [
     {
       title: 'Before the week begins',
@@ -115,7 +115,7 @@ function CarouselArrowButton({
   )
 }
 
-function RecentStoriesSection() {
+function LoveStoriesSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const isRevealed = useHasScrolledIntoView(sectionRef)
   const [isPausedByVisitor, setIsPausedByVisitor] = useState(false)
@@ -152,7 +152,7 @@ function RecentStoriesSection() {
           )}
         >
           <h2 className="font-serif text-5xl leading-tight tracking-[0.02em] uppercase lg:text-[72px] lg:leading-[68px]">
-            Recent
+            Love
             <br />
             stories
           </h2>
@@ -207,7 +207,7 @@ function RecentStoriesSection() {
 
         <div className="flex items-center gap-6 lg:contents">
           <CarouselArrowButton
-            label="Show previous recent stories"
+            label="Show previous love stories"
             isPrevious
             onClick={showPreviousSlide}
             className="transition-transform lg:absolute lg:top-[328px] lg:left-6"
@@ -227,7 +227,7 @@ function RecentStoriesSection() {
                 <button
                   key={slide[0].title}
                   type="button"
-                  aria-label={`Show recent stories ${slideIndex + 1} of ${storySlides.length}`}
+                  aria-label={`Show love stories ${slideIndex + 1} of ${storySlides.length}`}
                   aria-current={isActiveSlide}
                   onClick={() => goToSlide(slideIndex)}
                   className="py-3"
@@ -244,7 +244,7 @@ function RecentStoriesSection() {
           </div>
 
           <CarouselArrowButton
-            label="Show next recent stories"
+            label="Show next love stories"
             onClick={showNextSlide}
             className={cn(
               'lg:absolute lg:top-[328px] lg:right-6',
@@ -258,4 +258,4 @@ function RecentStoriesSection() {
   )
 }
 
-export default RecentStoriesSection
+export default LoveStoriesSection
