@@ -30,7 +30,7 @@ function PhotoPrint({
       />
       <figcaption className="text-center font-serif">
         <p className="text-[17px] leading-[22px] font-semibold">{title}</p>
-        <p className="text-body/64 text-sm leading-[18px] italic">{subtitle}</p>
+        <p className="text-body/80 text-sm leading-[18px] italic">{subtitle}</p>
       </figcaption>
     </figure>
   )
