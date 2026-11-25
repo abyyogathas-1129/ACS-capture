@@ -19,7 +19,7 @@ function Footer() {
   return (
     <footer className="bg-ink text-ivory/80">
       <div className="mx-auto flex max-w-[1440px] flex-col items-center px-5 pt-16 pb-8 lg:px-20">
-        <Logo className="h-16" />
+        <Logo size="lg" />
 
         <nav
           className="mt-10 flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm"
@@ -37,8 +37,8 @@ function Footer() {
         </nav>
 
         <p className="text-ivory/50 mt-6 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
-          <span>hello@example.com (placeholder)</span>
-          <span>+94 XX XXX XXXX (placeholder)</span>
+          <span>acscapture@gmail.com </span>
+          <span>+94 76 372 5906 </span>
         </p>
 
         <div className="bg-ivory/10 mt-12 h-px w-full" />
