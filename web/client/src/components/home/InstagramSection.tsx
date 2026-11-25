@@ -37,16 +37,16 @@ const instagramUrl =
 // Hovering a post slides a dark layer down with the Instagram icon in the middle.
 function InstagramSection() {
   return (
-    <section className="bg-ivory-soft px-5 py-16 lg:px-20 lg:py-24">
+    <section className="bg-ivory-soft px-5 py-12 lg:px-20 lg:py-16">
       <div className="mx-auto max-w-[1280px]">
         <p className="text-gold-dark text-xs font-medium tracking-[0.35em] uppercase">
           Instagram
         </p>
-        <h2 className="mt-3 font-serif text-5xl italic lg:text-[56px]">
+        <h2 className="mt-3 font-serif text-4xl italic lg:text-5xl">
           Follow along
         </h2>
 
-        <div className="mt-10 bg-white">
+        <div className="mt-8 bg-white">
           {/* Profile bar */}
           <div className="flex flex-col items-center gap-6 px-5 py-6 md:flex-row md:justify-center md:gap-12">
             <div className="flex items-center gap-4">
@@ -88,8 +88,8 @@ function InstagramSection() {
             </a>
           </div>
 
-          {/* Posts wall */}
-          <ul className="grid grid-cols-2 lg:grid-cols-4">
+          {/* Posts wall: one strip of 8 on laptops, 2 rows of 4 on smaller screens, to keep the section short */}
+          <ul className="grid grid-cols-4 lg:grid-cols-8">
             {instagramPosts.map((post) => (
               <li key={post.id}>
                 <a
@@ -107,7 +107,7 @@ function InstagramSection() {
                     className="absolute inset-0 flex -translate-y-full items-center justify-center bg-black/80 transition-transform duration-[400ms] ease-[cubic-bezier(.77,0,.175,1)] group-hover:translate-y-0 group-focus-visible:translate-y-0"
                     aria-hidden="true"
                   >
-                    <img src={instagramIcon} alt="" className="h-8 w-8" />
+                    <img src={instagramIcon} alt="" className="h-6 w-6" />
                   </span>
                 </a>
               </li>
