@@ -40,7 +40,7 @@ function Header() {
             {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
           <Link to="/" onClick={closeMenu}>
-            <Logo className="h-12" />
+            <Logo />
           </Link>
         </div>
 

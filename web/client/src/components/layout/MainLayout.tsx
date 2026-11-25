@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, ScrollRestoration } from 'react-router-dom'
 import Footer from './Footer'
 import Header from './Header'
 
@@ -11,6 +11,8 @@ function MainLayout() {
         <Outlet />
       </main>
       <Footer />
+      {/* Opens each new page at the top instead of where you scrolled to */}
+      <ScrollRestoration />
     </div>
   )
 }
