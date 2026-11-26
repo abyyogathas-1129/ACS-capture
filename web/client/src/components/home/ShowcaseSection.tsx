@@ -14,20 +14,38 @@ import { cn } from '../../utils/cn'
 import PhotoPrint from '../common/PhotoPrint'
 
 const studioStats = [
-  { value: '12+', label: 'Years behind the lens' },
+  { value: '10+', label: 'Years behind the lens' },
   { value: 'In-house', label: 'Shot, graded and delivered' },
   { value: 'Islandwide', label: 'Available across Sri Lanka' },
 ]
 
-// On large screens each print is placed like the Figma collage.
-// The numbers are percentages of the 800 x 880 collage box, so it shrinks nicely.
-// The first print is the main one: biggest card, and full width on small screens.
+// The collage is a simple grid with 24px gaps:
+// the main print on the left (2 rows tall), and 2 smaller 4:3 prints stacked on the right.
+// On phones the main print is full width, with the other two side by side underneath.
 // Every few seconds each print fades to its next photo (all lists have the same length).
-const showcaseSlots = [
+// photoPositionClassName moves the 4:3 crop so the people stay inside the frame.
+type ShowcasePhoto = {
+  title: string
+  subtitle: string
+  imageSrc: string
+  photoPositionClassName?: string
+}
+
+type ShowcaseSlot = {
+  className: string
+  layerClassName: string
+  printClassName: string
+  photoClassName: string
+  photos: ShowcasePhoto[]
+}
+
+const showcaseSlots: ShowcaseSlot[] = [
   {
-    className:
-      'col-span-2 sm:row-span-2 lg:left-[6.25%] lg:top-[12.5%] lg:w-[40.5%]',
-    photoClassName: 'aspect-[300/370]',
+    // From tablet size, the main print stretches to the exact height of the 2 small prints
+    className: 'col-span-2 sm:col-span-1 sm:row-span-2',
+    layerClassName: 'sm:absolute sm:inset-0',
+    printClassName: 'sm:h-full',
+    photoClassName: 'aspect-[300/370] sm:aspect-auto sm:min-h-0 sm:flex-1',
     photos: [
       {
         title: 'Shore at dusk',
@@ -47,40 +65,56 @@ const showcaseSlots = [
     ],
   },
   {
-    className: 'lg:left-[67.5%] lg:top-[6.4%] lg:w-[28%]',
-    photoClassName: 'aspect-[200/240]',
+    className: '',
+    layerClassName: '',
+    printClassName: '',
+    photoClassName: 'aspect-[4/3]',
     photos: [
       {
         title: 'Hand in hand',
         subtitle: 'Pre-wedding',
         imageSrc: handInHandPhoto,
+        // The couple stand low in the photo, so keep the lower part
+        photoPositionClassName: 'object-[50%_70%]',
       },
       {
         title: 'Dreams in silk',
         subtitle: 'Portrait',
         imageSrc: sareePortraitPhoto,
+        photoPositionClassName: 'object-[50%_65%]',
       },
       {
         title: 'Little gentleman',
         subtitle: 'Kids portrait',
         imageSrc: littleBoyPortraitPhoto,
+        photoPositionClassName: 'object-[50%_65%]',
       },
     ],
   },
   {
-    className: 'lg:left-[45%] lg:top-[44.5%] lg:w-[30.5%]',
-    photoClassName: 'aspect-[220/280]',
+    className: '',
+    layerClassName: '',
+    printClassName: '',
+    photoClassName: 'aspect-[4/3]',
     photos: [
-      { title: 'Sea breeze', subtitle: 'Portrait', imageSrc: seaBreezePhoto },
+      {
+        title: 'Sea breeze',
+        subtitle: 'Portrait',
+        imageSrc: seaBreezePhoto,
+        // Keep her face in the frame
+        photoPositionClassName: 'object-[50%_30%]',
+      },
       {
         title: 'Sunny afternoon',
         subtitle: 'Kids portrait',
         imageSrc: yellowDressPortraitPhoto,
+        photoPositionClassName: 'object-[50%_45%]',
       },
       {
         title: 'Garden party',
         subtitle: 'Kids portrait',
         imageSrc: pinkDressPortraitPhoto,
+        photoPositionClassName: 'object-[50%_40%]',
       },
     ],
   },
@@ -145,21 +179,18 @@ function ShowcaseSection() {
           </div>
         </div>
 
+        {/* lg:pt-32 matches the text column, so the main print's top lines up with the "Every frame" heading */}
         <div
-          className="relative grid grid-cols-2 gap-4 sm:grid-cols-3 lg:ml-auto lg:block lg:aspect-[800/880] lg:w-full lg:max-w-[800px]"
+          className="relative grid grid-cols-2 gap-6 sm:grid-cols-[3fr_2fr] lg:ml-auto lg:w-full lg:max-w-[800px] lg:self-start lg:pt-32 lg:pr-16 lg:pb-24"
           // Pause while the mouse is over the photos, so visitors can look properly
           onMouseEnter={() => setIsPausedByVisitor(true)}
           onMouseLeave={() => setIsPausedByVisitor(false)}
         >
-          <div
-            className="bg-ivory absolute top-[22.7%] left-0 hidden h-[77.3%] w-full rounded-tl-[320px] lg:block"
-            aria-hidden="true"
-          />
-
           {showcaseSlots.map((slot) => (
             <div
-              key={slot.className}
-              className={cn('grid lg:absolute', slot.className)}
+              key={slot.photos[0].title}
+              // "relative" lets the main print's layers stretch inside this spot
+              className={cn('relative grid', slot.className)}
             >
               {/* All photos of this spot sit on top of each other; only the active one is visible */}
               {slot.photos.map((photo, photoIndex) => {
@@ -171,6 +202,7 @@ function ShowcaseSection() {
                     aria-hidden={!isActivePhoto}
                     className={cn(
                       'col-start-1 row-start-1 transition-opacity duration-1000 ease-in-out',
+                      slot.layerClassName,
                       isActivePhoto ? 'opacity-100' : 'opacity-0',
                     )}
                   >
@@ -178,13 +210,23 @@ function ShowcaseSection() {
                       imageSrc={photo.imageSrc}
                       title={photo.title}
                       subtitle={photo.subtitle}
-                      photoClassName={slot.photoClassName}
+                      className={slot.printClassName}
+                      photoClassName={cn(
+                        slot.photoClassName,
+                        photo.photoPositionClassName,
+                      )}
                     />
                   </div>
                 )
               })}
             </div>
           ))}
+
+          {/* Short line under the photos, across both columns; gold word like the other headings.
+              The size grows step by step with the screen, so it always stays on one line inside the photo area. */}
+          <p className="text-body/80 col-span-2 text-center font-serif text-3xl leading-tight whitespace-nowrap italic sm:text-4xl lg:text-[40px] xl:text-[38px]">
+            Captured with <em className="text-gold-dark">love.</em>
+          </p>
         </div>
       </div>
     </section>
