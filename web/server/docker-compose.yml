@@ -1,0 +1,17 @@
+# Runs PostgreSQL in Docker for development
+services:
+  database:
+    image: postgres:18
+    container_name: acs-postgres
+    environment:
+      POSTGRES_USER: acs_app
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: acs_capture
+    ports:
+      - '5432:5432'
+    volumes:
+      - acs-postgres-data:/var/lib/postgresql
+      - ./database:/database
+
+volumes:
+  acs-postgres-data:
