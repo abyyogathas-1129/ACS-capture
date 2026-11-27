@@ -1,0 +1,20 @@
+-- The 6 services that are in ServicesSection.tsx today
+INSERT INTO services (slug, title, subtitle, description, image_url, page_path, sort_order) VALUES
+('weddings', 'Weddings', 'Full-day coverage',
+ 'From the first rituals to the last dance, we capture the people and moments that make the day yours.',
+ '/images/services/weddings.jpg', '/photography', 1),
+('pre-wedding', 'Pre-wedding shoot', 'Before the big day',
+ 'A relaxed session before the wedding, somewhere that means something to you both.',
+ '/images/services/pre-wedding.jpg', '/photography', 2),
+('portraits', 'Portraits', 'Studio and on location',
+ 'Natural portraits for individuals and families, in our studio or at a place you love.',
+ '/images/services/portraits.jpg', '/photography', 3),
+('birthdays', 'Birthdays', 'Parties and milestones',
+ 'From first candles to milestone birthdays: the smiles, the surprises and the cake cutting.',
+ '/images/services/birthdays.jpg', '/photography', 4),
+('model-shoots', 'Model shoots', 'Portfolio and fashion',
+ 'Build or refresh your portfolio with varied looks, confident poses and light that suits your style.',
+ '/images/services/model-shoots.jpg', '/photography', 5),
+('other-events', 'Other events', 'Anniversaries and gatherings',
+ 'Anniversaries, family gatherings and the other celebrations you want to remember.',
+ '/images/services/other-events.jpg', '/photography', 6);

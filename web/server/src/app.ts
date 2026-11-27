@@ -1,6 +1,7 @@
 import express from 'express'
 import { handleErrors } from './middleware/handleErrors.js'
 import { handleNotFound } from './middleware/handleNotFound.js'
+import { catalogRouter } from './modules/catalog/catalog.routes.js'
 import { healthRouter } from './modules/health/health.routes.js'
 
 export const app = express()
@@ -13,6 +14,7 @@ app.use(express.json({ limit: '20kb' }))
 
 // All API routes start with /api
 app.use('/api', healthRouter)
+app.use('/api', catalogRouter)
 
 // These two must stay LAST
 app.use(handleNotFound)
